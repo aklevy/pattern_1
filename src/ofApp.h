@@ -7,9 +7,10 @@
 class ofApp : public ofBaseApp{
 public:
     void setup();
-
+    void setupVbo(int nbCirclesPerLine,int nbCirclesPerColumn);
     void update();
     void draw();
+    void drawCircleCenters();
 
     void keyPressed(int key);
     void keyReleased(int key);
@@ -24,9 +25,8 @@ public:
     void gotMessage(ofMessage msg);
 
 private:
-    ofPoint     _origin{0};
     bool        _bStopUpdate{false};
-    int         _circleRadius{10};
+    int         _circleRadius{100};
     int         _nbPointsOnCircle{30};
 
     ofVec2f     _windowSize{1};
