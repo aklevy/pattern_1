@@ -120,6 +120,7 @@ void ofApp::update(){
 
             phi = zero.angleRad(ofVec2f(mousePos.x - circleCenter.x,
                                         mousePos.y - circleCenter.y));
+            phi += _bBoom ? ofClamp(45. * (_hanabiPropagation-0.5)  ,0,1.)* M_PI: 0.;
             vFollow =  circleCenter + d*_circleRadius *  ofVec2f(cos(phi),sin(phi))
                     + (1-d) * (vFollow - circleCenter);
             _vboMesh.getVertices()[index * (_nbPointsOnCircle+1)] = vFollow;
@@ -134,9 +135,8 @@ void ofApp::update(){
 void ofApp::updateHanabiSeed(){
     if(_bBoom)
     {
-        float diff = ofGetElapsedTimef() - _timeStart;
-        if(diff < 5)
-            _hanabiPropagation = diff / 5.;
+        if(_hanabiPropagation < 1.)
+            _hanabiPropagation = (ofGetElapsedTimef() - _timeStart) / 10. +0.5;
         else
         {
             // relaunch another seed
