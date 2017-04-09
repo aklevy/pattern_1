@@ -15,6 +15,6 @@ void main()
                           + (vFollow.y-gl_FragCoord.y)*(vFollow.y-gl_FragCoord.y));
     float colorRatio = distance / (circleRadius*2.);
 
-    gl_FragColor = colorRatio * colorOut + (1. - colorRatio) * ((1.- ratioHanabi)*(colorIn)
+    gl_FragColor = (1.- ratioHanabi)*(colorRatio * colorOut + (1. - colorRatio) * ((colorIn))
                     + ratioHanabi * colorHanabi);
 }

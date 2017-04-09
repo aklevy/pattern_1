@@ -6,14 +6,19 @@
 
 class ofApp : public ofBaseApp{
 public:
+    enum STATE{FOLLOW_MOUSE ,LAUNCH,EXPLODE,DISAPPEAR};
+
     void setup();
     void setupVbo(int nbCirclesPerLine,int nbCirclesPerColumn);
-    void setupHanabiSeed(int nb);
+    void setupHanabiSeed();
 
     void update();
     void updateHanabiSeed();
 
     void draw();
+
+    void switchState(STATE next);
+    void toggleMouseMode();
 
     void keyPressed(int key);
     void keyReleased(int key);
@@ -27,16 +32,23 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
 
+
 private:
-    ofVec2f     _hanabiSeed{0};
-    bool        _bStart{false};
+    STATE       _state{FOLLOW_MOUSE};
+
+    // background color
+    float       _lerpBgColor{1.};
+    bool        _bChangeBgColor{false};
+
+    // hanabi seed
+    ofVec2f     _hanabiSeed{-1000};
+    float       _seedLighRadius{650};
     ofFloatColor    _seedColor;
 
-    bool        _bBoom{false};
+    float       _angle{0};
     float       _timeStart{0};
     float       _hanabiPropagation{0};
 
-    bool        _bStopUpdate{false};
     int         _circleRadius{50};
     int         _nbPointsOnCircle{30};
 
